@@ -1,0 +1,32 @@
+.btn {  
+    font-size: 20px;
+}
+#initial-screen {
+    text-align: center;
+}
+
+#pause {
+    text-align: center;
+    position: relative;
+    bottom: 100px;
+    left: 280px;
+    right: 50px;
+}
+.screen {
+    border: 5px solid red;
+    width: 680px;
+    height: 560px;
+    overflow: hidden;
+}
+.message {
+    position: relative;
+    bottom: 65px;
+    left: 260px;
+    font-size: 45px;
+    font-style: italic;
+    color: coral;
+}
+.img {
+    width: 680px;
+    height: 560px;
+}

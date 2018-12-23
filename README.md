@@ -26,15 +26,17 @@ There are going to be three levels of difficulty. The levels are going to be det
 Every time the user reaches and accomplish a level, a winner screen will appear. However, if he loses, a game over screen will appear.
 
 ## MVP (DOM – CANVAS)
-1. Bar
-2. Ball
-3. Ball to move around the grid
-4. Bar to move at the buttom of the grid
-5. Box with the level in which we are playing
-6. Box with the amount of points the user has
-7. Game initial screen
-8. Winner screen
-9. Game over screen
+1. Game initial screen
+2. Game screen
+3. Winner screen
+3. Game over screen
+4. Score box
+5. Bar
+6. Ball
+7. Ball to move around the grid
+8. Bar to move at the buttom of the grid
+9. Box with the level in which we are playing
+10.Box with the amount of points the user has
 
 ## Backlog
 1. Add blocks at the top of the grid
@@ -66,4 +68,4 @@ Screen to appear when the player wins.
 * [Trello](https://trello.com/b/2ND8YanY/shot-pong)
 * [Solo-pong repo](https://github.com/IONDO/Game-project)
 * [Link Deploy](http://)
-* [Solo-pong slides](https://slides.com/inesdelcarmenondobaka/deck)
+* [Solo-pong slides](https://slides.com/inesdelcarmenondobaka)

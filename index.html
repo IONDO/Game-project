@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <script type="text/javascript" src="js/main.js" async></script>
+  <title>Solo-pong</title>
+</head>
+
+<body>
+  <div class="screen">
+    <section id="initial-screen">
+      <h3> Welcome to Solo-pong</h3>
+      <img src="images/initial-screen.png">
+      <br>
+      <button class="btn" id="start-btn" type="button">Start game</button>
+    </section>
+    <section style="display:none" id="game-screen">
+      <canvas id="screen" width="680" height="560"></canvas>
+      <button class="btn" id="pause" type="button">Pause</button>
+    </section>
+    <section2 style="display:none" id="winner-screen">
+      <img class="block img" src="images/winner.jpeg">
+      <br>
+      <span class="message">You win!!</span>
+    </section2>
+    <section3 style="display:none" id="loser-screen">
+      <img class="block img" src="images/loser.jpeg">
+      <br>
+      <span class="message">Try again!!</span>
+    </section3>
+  </div>
+</body>
+
+</html>
