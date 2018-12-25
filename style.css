@@ -9,12 +9,12 @@
     text-align: center;
     position: relative;
     bottom: 280px;
-    left: 588px;
+    left: 590px;
     right: 50px;
 }
 .screen {
     border: 5px solid red;
-    width: 680px;
+    width: 700px;
     height: 560px;
     overflow: hidden;
 }
