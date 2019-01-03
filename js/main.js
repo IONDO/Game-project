@@ -10,8 +10,8 @@ let ball = {
     y: canvas.height - 10,
     radius: 15
 }
-let speedX = 4;
-let speedY = -4;
+let speedX = 6;
+let speedY = -6;
 
 function drawBall() {
     context.beginPath();
@@ -23,15 +23,29 @@ function drawBall() {
 
 let barCordenates = {
     x: 250,
-    y: 500
+    y: 500,
+    width: 90,
+    height: 20,
+    right: false,
+    left: false
+}
+
+function drawBar() {
+    context.fillStyle = "white";
+    context.fillRect(barCordenates.x, barCordenates.y, barCordenates.width, barCordenates.height);
 }
 
 function draw() {
     context.fillStyle = "#0081D7";
     context.fillRect(0, 0, playingArea.width, playingArea.height);
     drawBall();
-    context.fillStyle = "white";
-    context.fillRect(barCordenates.x, barCordenates.y, 90, 20);
+    drawBar();
+    if(barCordenates.right && barCordenates.x < playingArea.width - barCordenates.width) {
+        barCordenates.x += 4;
+    }
+    else if(barCordenates.left && barCordenates.x > 0) {
+        barCordenates.x -= 4;
+    }
     requestAnimationFrame(draw);
 }
 
@@ -46,6 +60,7 @@ function update() {
     }
     ball.x += speedX;
     ball.y += speedY;
+
 }
 
 context.fillStyle = "white";
@@ -55,6 +70,25 @@ let interval = undefined;
 startButton.onclick = function () {
     document.getElementById("initial-screen").style = "display: none";
     document.getElementById("game-screen").style = "display: ";
+    document.addEventListener("keydown", keyDown, false);
+    document.addEventListener("keyup", keyUp, false);
+    function keyDown(e) {
+        if(e.keyCode == 39) {
+            barCordenates.right = true;
+        }
+        else if(e.keyCode == 37) {
+            barCordenates.left = true;
+        }
+    }
+    
+    function keyUp(e) {
+        if(e.keyCode == 39) {
+            barCordenates.right = false;
+        }
+        else if(e.keyCode == 37) {
+            barCordenates.left = false;
+        }
+    }
     interval = setInterval(update, 1000 / updatesPerSecond);
     requestAnimationFrame(draw);
 
