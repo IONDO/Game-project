@@ -1,6 +1,11 @@
-.btn {  
+canvas {
+    background-color: goldenrod;
+}
+
+.btn {
     font-size: 20px;
 }
+
 #initial-screen {
     text-align: center;
 }
@@ -9,15 +14,17 @@
     text-align: center;
     position: relative;
     bottom: 280px;
-    left: 590px;
-    right: 50px;
+    right: -14px;
 }
+
 .screen {
     border: 5px solid red;
-    width: 700px;
+    width: 670px;
     height: 560px;
     overflow: hidden;
+    background-color: goldenrod;
 }
+
 .message {
     position: relative;
     bottom: 65px;
@@ -26,6 +33,7 @@
     font-style: italic;
     color: coral;
 }
+
 .img {
     width: 680px;
     height: 560px;

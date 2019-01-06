@@ -1,17 +1,17 @@
 const canvas = document.getElementById("screen");
 const context = canvas.getContext("2d");
-const updatesPerSecond = 35;
+const updatesPerSecond = 45;
 const playingArea = {
-    width: 580,
+    width: 550,
     height: 560
 } // This are the dimensions of the blue side
 let ball = {
-    x: canvas.width / 4,
+    x: canvas.width / 2,
     y: canvas.height - 10,
     radius: 15
 }
-let speedX = 6;
-let speedY = -6;
+let speedX = 5;
+let speedY = -5;
 
 function drawBall() {
     context.beginPath();
@@ -21,35 +21,28 @@ function drawBall() {
     context.closePath();
 }
 
-let barCordenates = {
-    x: 250,
-    y: 500,
-    width: 90,
-    height: 20,
-    right: false,
-    left: false
-}
+let bar = new Bar(150, 500)
 
-function drawBar() {
-    context.fillStyle = "white";
-    context.fillRect(barCordenates.x, barCordenates.y, barCordenates.width, barCordenates.height);
+function drawPlayingArea() {
+    context.fillStyle = "#0081D7";
+    context.fillRect(0, 0, playingArea.width, playingArea.height);
 }
 
 function draw() {
-    context.fillStyle = "#0081D7";
-    context.fillRect(0, 0, playingArea.width, playingArea.height);
+    drawPlayingArea();
     drawBall();
-    drawBar();
-    if(barCordenates.right && barCordenates.x < playingArea.width - barCordenates.width) {
-        barCordenates.x += 4;
-    }
-    else if(barCordenates.left && barCordenates.x > 0) {
-        barCordenates.x -= 4;
-    }
+    bar.draw(context);
     requestAnimationFrame(draw);
 }
 
-function update() {
+function collides(circle, rect) {
+    return circle.x + circle.radius >= rect.x - rect.width / 2 &&
+        circle.x - circle.radius <= rect.x + rect.width / 2 &&
+        circle.y + circle.radius >= rect.y - rect.height / 2 &&
+        circle.y - circle.radius <= rect.y + rect.height / 2;
+}
+
+function updateBall() {
     if (ball.x - ball.radius <= 0 || ball.x + ball.radius >= playingArea.width) {
         console.log("plonch!")
         speedX = -speedX;
@@ -57,10 +50,20 @@ function update() {
     if (ball.y - ball.radius <= 0) {
         console.log("plonch!")
         speedY = -speedY;
+
     }
+    if (collides(ball, bar)) {
+        //speedX = -speedX;
+        speedY = -speedY;
+    }
+    
     ball.x += speedX;
     ball.y += speedY;
+}
 
+function update() {
+    bar.updateBar(playingArea);
+    updateBall();
 }
 
 context.fillStyle = "white";
@@ -72,21 +75,20 @@ startButton.onclick = function () {
     document.getElementById("game-screen").style = "display: ";
     document.addEventListener("keydown", keyDown, false);
     document.addEventListener("keyup", keyUp, false);
+
     function keyDown(e) {
-        if(e.keyCode == 39) {
-            barCordenates.right = true;
-        }
-        else if(e.keyCode == 37) {
-            barCordenates.left = true;
+        if (e.keyCode == 39) {
+            bar.right = true;
+        } else if (e.keyCode == 37) {
+            bar.left = true;
         }
     }
-    
+
     function keyUp(e) {
-        if(e.keyCode == 39) {
-            barCordenates.right = false;
-        }
-        else if(e.keyCode == 37) {
-            barCordenates.left = false;
+        if (e.keyCode == 39) {
+            bar.right = false;
+        } else if (e.keyCode == 37) {
+            bar.left = false;
         }
     }
     interval = setInterval(update, 1000 / updatesPerSecond);
