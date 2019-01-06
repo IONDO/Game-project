@@ -5,23 +5,10 @@ const playingArea = {
     width: 550,
     height: 560
 } // This are the dimensions of the blue side
-let ball = {
-    x: canvas.width / 2,
-    y: canvas.height - 10,
-    radius: 15
-}
-let speedX = 5;
-let speedY = -5;
 
-function drawBall() {
-    context.beginPath();
-    context.fillStyle = "white";
-    context.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-    context.fill();
-    context.closePath();
-}
+let ball = new Ball(canvas.width / 3, canvas.height - 12, 15, 5, -5);
 
-let bar = new Bar(150, 500)
+let bar = new Bar(150, 500);
 
 function drawPlayingArea() {
     context.fillStyle = "#0081D7";
@@ -30,40 +17,15 @@ function drawPlayingArea() {
 
 function draw() {
     drawPlayingArea();
-    drawBall();
     bar.draw(context);
+    ball.draw(context);
     requestAnimationFrame(draw);
 }
 
-function collides(circle, rect) {
-    return circle.x + circle.radius >= rect.x - rect.width / 2 &&
-        circle.x - circle.radius <= rect.x + rect.width / 2 &&
-        circle.y + circle.radius >= rect.y - rect.height / 2 &&
-        circle.y - circle.radius <= rect.y + rect.height / 2;
-}
-
-function updateBall() {
-    if (ball.x - ball.radius <= 0 || ball.x + ball.radius >= playingArea.width) {
-        console.log("plonch!")
-        speedX = -speedX;
-    }
-    if (ball.y - ball.radius <= 0) {
-        console.log("plonch!")
-        speedY = -speedY;
-
-    }
-    if (collides(ball, bar)) {
-        //speedX = -speedX;
-        speedY = -speedY;
-    }
-    
-    ball.x += speedX;
-    ball.y += speedY;
-}
 
 function update() {
     bar.updateBar(playingArea);
-    updateBall();
+    ball.update(playingArea, bar);
 }
 
 context.fillStyle = "white";
