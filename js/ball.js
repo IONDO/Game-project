@@ -5,6 +5,8 @@ class Ball {
         this.radius = radius;
         this.speedX = speedX;
         this.speedY = speedY;
+        this.increaseSpeed = 0.2;
+        this.collisionSound = new Audio("Sounds/Collision/collision.wav");
     }
 
     draw(context) {
@@ -25,17 +27,22 @@ class Ball {
     update(playingArea, rect) {
         if (this.x - this.radius <= 0 || this.x + this.radius >= playingArea.width) {
             console.log("plonch!")
+            this.collisionSound.play();
             this.speedX = -this.speedX;
+            
         }
         if (this.y - this.radius <= 0) {
             console.log("plonch!")
+            this.collisionSound.play();
             this.speedY = -this.speedY;
     
         }
         
         if (this._collides(this, rect)) {
             //this.speedX = -this.speedX;
-            this.speedY = -this.speedY;
+            this.collisionSound.play();
+            this.speedY = -this.speedY - this.increaseSpeed;
+            
         }
 
         this.x += this.speedX;
