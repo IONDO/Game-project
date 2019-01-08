@@ -35,8 +35,9 @@ startButton.onclick = function () {
     document.getElementById("initial-screen").style = "display: none";
     document.getElementById("game-screen").style = "display: ";
     game.start((score) => {
-        console.log(score);
+        //console.log(score);
         document.getElementById('score').innerHTML = "Score: " + score;
+        document.getElementById('level').innerHTML = "Level: " + game.level;
     });;
 }
 
@@ -50,9 +51,24 @@ game.onGameOver = function () {
         game.pause(pauseButton);
 }
 
+game.onWinningGame = function () {
+    if(game.score > 30) {
+        document.getElementById("game-screen").style = "display: none";
+        document.getElementById("winner-screen").style = "display: ";
+    }
+}
+
 const restartButton = document.getElementById("restart");
 restartButton.onclick = function () {
     document.getElementById("gameover-screen").style = "display: none";
     document.getElementById("game-screen").style = "display: ";
     location.reload();
 }
+
+const reIniitateButton = document.getElementById("reinitate-game");
+reIniitateButton.onclick = function () {
+    document.getElementById("winner-screen").style = "display: none";
+    document.getElementById("game-screen").style = "display: ";
+    location.reload();
+}
+

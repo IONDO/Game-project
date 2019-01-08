@@ -6,8 +6,10 @@ class Game {
         this.bar = options.bar;
         this.playingArea = options.playingArea;
         this.context = options.context;
-        this.score = 0;
+        this.score = 29;
+        this.level = 1;
         this.onScoreChange = undefined;
+        this.onWinningGame = undefined;
     }
 
     _drawPlayingArea() {
@@ -28,17 +30,29 @@ class Game {
         if(this.ball._collides(this.ball, this.bar)) {
             this.score += 1;
             this.onScoreChange(this.score);
+            this.onWinningGame(this.score);
         }
         if (this.ball.y >= this.playingArea.height) {
             this.onGameOver();
-        }
+        } else if(this.score >= 0 && this.score <= 20) {
+            this.level = 1;
+        } else if (this.score > 20 && this.score <= 25) {
+            this.level = 2;
+            /* this.ball.speedX += 0.10;
+            this.ball.speedY -= 0.10; */
+        } else if(this.score <= 30) {
+            this.level = 3;
+            /* this.ball.speedX += 0.05;
+            this.ball.speedY -= 0.05; */
+        }       
     }
 
-    start(onScoreChange) {
+    start(onScoreChange, onWinningGame) {
         this._interval = setInterval(this._update.bind(this), 1000 / this.updatesPerSecond);
         requestAnimationFrame(this._draw.bind(this));
         this.onScoreChange = onScoreChange;
         this.onScoreChange(this.score);
+        this.onWinningGame(this.score);
     }
 
     pause (pauseButton) {

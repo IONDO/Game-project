@@ -24,12 +24,27 @@ canvas {
     left: 275px;
 }
 
+#reinitate-game {
+    text-align: center;
+    position: relative;
+    bottom: 130px;
+    left: 275px;
+}
+
 
 #score {
     text-align: center;
     position: relative;
-    bottom: 436px;
+    bottom: 500px;
     left: 572px;
+    color: blueviolet;
+}
+
+#level {
+    text-align: center;
+    position: relative;
+    bottom: 468px;
+    left: 500px;
     color: blueviolet;
 }
 
