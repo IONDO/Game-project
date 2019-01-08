@@ -6,11 +6,18 @@ class Game {
         this.bar = options.bar;
         this.playingArea = options.playingArea;
         this.context = options.context;
+        this.score = 0;
+        this.points = undefined;
     }
 
     _drawPlayingArea() {
         this.context.fillStyle = "#0081D7";
         this.context.fillRect(0, 0, this.playingArea.width, this.playingArea.height);
+    }
+    points() {
+        if(this.ball._collides()) {
+            this.score += 1;
+        }
     }
 
     _draw() {
@@ -22,12 +29,20 @@ class Game {
 
     _update() {
         this.bar.updateBar(this.playingArea);
-        this.ball.update(this.playingArea, this.bar);
+        this.ball.update(this.playingArea, this.bar, this.score);
+        if(this.ball._collides(this.ball, this.bar)) {
+            this.score += 1;
+            this.points(this.score);
+        }
+        if (this.ball.y >= this.playingArea.height) {
+            this.onGameOver();
+        }
     }
 
-    start() {
+    start(points) {
         this._interval = setInterval(this._update.bind(this), 1000 / this.updatesPerSecond);
         requestAnimationFrame(this._draw.bind(this));
+        this.points = points;
     }
 
     pause (pauseButton) {

@@ -30,26 +30,29 @@ function keyUp(e) {
     }
 }
 
-/* const game = document.getElementById("game-screen");
-let timeout = window.setTimeout(() => {
-    game.style = "display: none";
-    document.getElementById("winner-screen").style = "display: "
-}, 3000);
-const winnerScreen = document.getElementById("winner-screen")
-window.setTimeout(() => {
-    winnerScreen.style = "display: none";
-    document.getElementById("loser-screen").style = "display: "
-}, 6000); */
-
 const startButton = document.getElementById("start-btn");
-startButton.onclick = function() {
+startButton.onclick = function () {
     document.getElementById("initial-screen").style = "display: none";
-    document.getElementById("game-screen").style = "display: ";    
-    game.start();
+    document.getElementById("game-screen").style = "display: ";
+    game.start((points) => {
+        console.log(points);
+        document.getElementById('score').innerHTML = "Score: " + game.score;
+    });;
 }
-
-let ball = new Ball(canvas.width / 3, canvas.height - 12, 10, 5, -5);
-let bar = new Bar(150, 500);
 
 const pauseButton = document.getElementById("pause");
 pauseButton.onclick = game.pause.bind(game, pauseButton);
+
+game.onGameOver = function () {
+        let gameOver = document.getElementById('gameover-screen');
+        document.getElementById("game-screen").style  = "display: none";
+        gameOver.style = "display: block";
+        game.pause(pauseButton);
+}
+
+const restartButton = document.getElementById("restart");
+restartButton.onclick = function () {
+    document.getElementById("gameover-screen").style = "display: none";
+    document.getElementById("game-screen").style = "display: ";
+    location.reload();
+}

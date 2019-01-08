@@ -17,6 +17,22 @@ canvas {
     right: -14px;
 }
 
+#restart {
+    text-align: center;
+    position: relative;
+    bottom: 130px;
+    left: 275px;
+}
+
+
+#score {
+    text-align: center;
+    position: relative;
+    bottom: 436px;
+    left: 572px;
+    color: blueviolet;
+}
+
 .screen {
     border: 5px solid red;
     width: 670px;
@@ -35,6 +51,6 @@ canvas {
 }
 
 .img {
-    width: 680px;
+    width: 670px;
     height: 560px;
 }
