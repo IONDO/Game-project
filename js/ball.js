@@ -19,7 +19,7 @@ class Ball {
 
     onScore(event) {
         return event;
-    }
+    }// call back function to update score
 
     _collides(circle, rect) {
         return circle.x + circle.radius >= rect.x - rect.width / 2 &&
@@ -28,7 +28,7 @@ class Ball {
             circle.y - circle.radius <= rect.y + rect.height / 2;
     }
 
-    update(playingArea, rect, game) {
+    update(playingArea, rect) {
         if (this.x - this.radius <= 0 || this.x + this.radius >= playingArea.width) {
             this.collisionSound.play();
             this.speedX = -this.speedX;

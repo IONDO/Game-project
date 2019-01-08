@@ -34,9 +34,9 @@ const startButton = document.getElementById("start-btn");
 startButton.onclick = function () {
     document.getElementById("initial-screen").style = "display: none";
     document.getElementById("game-screen").style = "display: ";
-    game.start((points) => {
-        console.log(points);
-        document.getElementById('score').innerHTML = "Score: " + game.score;
+    game.start((score) => {
+        console.log(score);
+        document.getElementById('score').innerHTML = "Score: " + score;
     });;
 }
 
