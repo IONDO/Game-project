@@ -10,6 +10,8 @@ class Game {
         this.level = 1;
         this.onScoreChange = undefined;
         this.onWinningGame = undefined;
+        this.winningSound = new Audio("Sounds/winning game/win.mp3");
+        this.loosingSound = new Audio("Sounds/loosing game/gameover.wav");
     }
 
     _drawPlayingArea() {

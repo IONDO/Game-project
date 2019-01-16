@@ -8,8 +8,8 @@ class Ball extends BouncingBox {
         this.height = radius * 2;
         this.speedX = speedX;
         this.speedY = speedY;
+        this.collisionSound = new Audio("Sounds/collision/bip.mpeg");
         this.increaseSpeed = 0.2;
-        this.collisionSound = new Audio("Sounds/Collision/collision.wav");
     }
 
     draw(context) {
