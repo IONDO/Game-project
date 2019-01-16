@@ -67,5 +67,5 @@ Screen to appear when the player wins.
 
 * [Trello](https://trello.com/b/2ND8YanY/shot-pong)
 * [Solo-pong repo](https://github.com/IONDO/Game-project)
-* [Link Deploy](http://)
+* [Link Deploy](https://iondo.github.io/Game-project/)
 * [Solo-pong slides](https://slides.com/inesdelcarmenondobaka)
