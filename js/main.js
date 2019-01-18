@@ -2,8 +2,9 @@ const canvas = document.getElementById("screen");
 // const context = canvas.getContext("2d");
 
 const game = new Game({
-    ball: new Ball(canvas.width / 3, canvas.height - 12, 10, 5, -5),
-    bar: new Bar(150, 500),
+    ball: new Ball(225, 450, 10, 5, -5),
+    bar: new Bar(425, 500),
+    blocks: new Blocks(),
     playingArea: {
         width: 550,
         height: 560
@@ -35,7 +36,6 @@ startButton.onclick = function () {
     document.getElementById("initial-screen").style = "display: none";
     document.getElementById("game-screen").style = "display: ";
     game.start((score) => {
-        //console.log(score);
         document.getElementById('score').innerHTML = "Score: " + score;
         document.getElementById('level').innerHTML = "Level: " + game.level;
     });;
@@ -48,14 +48,13 @@ game.onGameOver = function () {
         let gameOver = document.getElementById('gameover-screen');
         document.getElementById("game-screen").style  = "display: none";
         gameOver.style = "display: block";
+        game.loosingSound.play() 
         game.pause(pauseButton);
 }
 
 game.onWinningGame = function () {
-    if(game.score > 30) {
-        document.getElementById("game-screen").style = "display: none";
-        document.getElementById("winner-screen").style = "display: ";
-    }
+    document.getElementById("game-screen").style = "display: none";
+    document.getElementById("winner-screen").style = "display: ";
 }
 
 const restartButton = document.getElementById("restart");

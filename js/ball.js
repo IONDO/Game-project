@@ -14,26 +14,21 @@ class Ball extends BouncingBox {
 
     draw(context) {
         context.beginPath();
-        context.fillStyle = "green";
+        context.fillStyle = "#006bb5";
+        context.arc(this.x, this.y + 5, this.radius, 0, Math.PI * 2);
+        context.fill();
+        context.closePath();
+        context.beginPath();
+        context.fillStyle = "white";
         context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         context.fill();
         context.closePath();
     }
-    
-    // call back function to update score
-    onScore(event) {
-        return event;
-    }
 
-    // checking collison against bar
-    _collides(circle, rect) {
-        return circle.maxX() >= rect.minX() &&
-            circle.minX() <= rect.maxX() &&
-            circle.maxY() >= rect.minY() &&
-            circle.minY() <= rect.maxY();
-    }
+    update(playingArea, boxes) {
+        this.x += this.speedX;
+        this.y += this.speedY;
 
-    update(playingArea, rect) {
         // checking collision against left/right side of the playing area
         if (this.x - this.radius <= 0 || this.x + this.radius >= playingArea.width) {
             this.collisionSound.play();
@@ -42,17 +37,30 @@ class Ball extends BouncingBox {
         // checking collision against the top of the playing area
         if (this.y - this.radius <= 0) {
             this.collisionSound.play();
-            this.speedY = -this.speedY + this.increaseSpeed;
+            this.speedY = -this.speedY ;
+            //this.x += 20;
             //this.x = Math.random() * 550
             console.log("hit me");
         }
-        if (this._collides(this, rect)) {
-            this.collisionSound.play();
-            this.speedY = -this.speedY - this.increaseSpeed;
-        }
 
-        this.x += this.speedX;
-        this.y += this.speedY;
+        boxes.forEach(box => {
+            switch(this.bouncesAgainst(box)) {
+                case 'vertical':
+                    this.collisionSound.play();
+                    console.log("Vertical")
+                    this.speedX = -this.speedX;
+                    break;
+                case 'horizontal':
+                    this.collisionSound.play();
+                    console.log("Horizontal")
+                    this.speedY = -this.speedY;
+                    break;
+                case 'none':
+                    console.log("None");
+            }                
+        });
+
+
     }
 
 }

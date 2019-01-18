@@ -4,9 +4,11 @@ class Game {
         this._interval = undefined;
         this.ball = options.ball;
         this.bar = options.bar;
+        this.blocks = options.blocks
+        this.blocks.onBlockDestroyed = this._pointAwarded.bind(this);
         this.playingArea = options.playingArea;
         this.context = options.context;
-        this.score = 29;
+        this.score = 0;
         this.level = 1;
         this.onScoreChange = undefined;
         this.onWinningGame = undefined;
@@ -15,49 +17,53 @@ class Game {
     }
 
     _drawPlayingArea() {
-        this.context.fillStyle = "#0081D7";
+        this.context.fillStyle = "#0094F3";
         this.context.fillRect(0, 0, this.playingArea.width, this.playingArea.height);
     }
 
     _draw() {
         this._drawPlayingArea(this.context);
-        this.bar.draw(this.context);
+        this.blocks.draw(this.context);
         this.ball.draw(this.context);
+        this.bar.draw(this.context);
         requestAnimationFrame(this._draw.bind(this));
     }
 
-    _update() {
-        this.bar.updateBar(this.playingArea);
-        this.ball.update(this.playingArea, this.bar, this.score);
-        if(this.ball._collides(this.ball, this.bar)) {
-            this.score += 1;
-            this.onScoreChange(this.score);
+    _pointAwarded() {
+        this.score += 1;
+        this.onScoreChange(this.score);
+        if(this.blocks.length === 0) {
             this.onWinningGame(this.score);
+            this.pause(pauseButton);
+            this.winningSound.play();
         }
-        if (this.ball.y >= this.playingArea.height) {
-            this.onGameOver();
-        } else if(this.score >= 0 && this.score <= 20) {
-            this.level = 1;
-        } else if (this.score > 20 && this.score <= 25) {
-            this.level = 2;
-            /* this.ball.speedX += 0.10;
-            this.ball.speedY -= 0.10; */
-        } else if(this.score <= 30) {
-            this.level = 3;
-            /* this.ball.speedX += 0.05;
-            this.ball.speedY -= 0.05; */
-        }       
     }
 
-    start(onScoreChange, onWinningGame) {
+    _update() {
+        let boxes = [this.bar].concat(this.blocks.blocks);
+        this.ball.update(this.playingArea, boxes);
+        this.bar.update(this.playingArea);
+        this.blocks.update(this.ball);
+        if (this.ball.y >= this.playingArea.height) {
+            this.onGameOver();
+        } else if (this.score <= 15) {
+            this.level = 1;
+        } else if (this.score <= 30) {
+            this.level = 2;
+        } else {
+            this.level = 3;
+        }
+
+    }
+
+    start(onScoreChange) {
         this._interval = setInterval(this._update.bind(this), 1000 / this.updatesPerSecond);
         requestAnimationFrame(this._draw.bind(this));
         this.onScoreChange = onScoreChange;
         this.onScoreChange(this.score);
-        this.onWinningGame(this.score);
     }
 
-    pause (pauseButton) {
+    pause(pauseButton) {
         if (this._interval) {
             clearInterval(this._interval);
             this._interval = undefined;
