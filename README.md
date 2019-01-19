@@ -1,11 +1,13 @@
 # Solo-pong
 
 ## Description
-The aim of the game is to make sure the ball always hits the bar, otherwise, the game is over and we have to restart the game. 
+The aim of the game is to make sure the ball hits all the blocks in the screen.
 
-This game will have two elements; a **ball** and a **bar**.
+The ball has to bounce against the bar and avoid going below the playing area, otherwise, the game is over and we have to restart the game. 
 
-Every time the ball hits the bar we gain a point.
+This game will have three elements; a **ball** , a **bar** and the **blocks**.
+
+Every time the ball hits a block we gain a point.
 
 At the beginning of the game, the ball will be slow, but as the game progress the ball will speed up and the player will have to be faster.
 
@@ -13,30 +15,28 @@ There are going to be three levels of difficulty. The levels are going to be det
 
 1. Beginner
 
-   Points to get: 50 points
+   Points to get: 15 points
 
 2. Intermediate
 
-   Points to get: 150 points
+   Points to get: 30 points
 
 3. Expert
 
-   Points to get: 300 points
-
-Every time the user reaches and accomplish a level, a winner screen will appear. However, if he loses, a game over screen will appear.
+   Points to get: 48 points
 
 ## MVP (DOM – CANVAS)
 1. Game initial screen
 2. Game screen
 3. Winner screen
 3. Game over screen
-4. Score box
-5. Bar
-6. Ball
+4. Bar
+5. Ball
+6. Blocks
 7. Ball to move around the grid
-8. Bar to move at the buttom of the grid
-9. Box with the level in which we are playing
-10.Box with the amount of points the user has
+8. Bar to move with keyboard at the buttom of the grid
+9. Score box
+10. Level box
 
 ## Backlog
 1. Add blocks at the top of the grid
@@ -48,6 +48,7 @@ Every time the user reaches and accomplish a level, a winner screen will appear.
 class Game {}
 class Ball {}
 class Bar  {}
+class BouncingBox  {}
 ```
 ## States y States Transitions
 

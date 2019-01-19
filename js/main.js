@@ -1,6 +1,4 @@
 const canvas = document.getElementById("screen");
-// const context = canvas.getContext("2d");
-
 const game = new Game({
     ball: new Ball(225, 450, 10, 5, -5),
     bar: new Bar(425, 500),
@@ -32,27 +30,26 @@ function keyUp(e) {
 }
 
 const startButton = document.getElementById("start-btn");
-startButton.onclick = function () {
+game.onScoreChange = (score) => {
+    document.getElementById('score').innerHTML = "Score: " + score;
+    document.getElementById('level').innerHTML = "Level: " + game.level;
+};
+startButton.onclick = () => {
     document.getElementById("initial-screen").style = "display: none";
     document.getElementById("game-screen").style = "display: ";
-    game.start((score) => {
-        document.getElementById('score').innerHTML = "Score: " + score;
-        document.getElementById('level').innerHTML = "Level: " + game.level;
-    });;
-}
+    game.start();
+};
 
 const pauseButton = document.getElementById("pause");
 pauseButton.onclick = game.pause.bind(game, pauseButton);
 
-game.onGameOver = function () {
+game.onGameOver = () => {
         let gameOver = document.getElementById('gameover-screen');
         document.getElementById("game-screen").style  = "display: none";
         gameOver.style = "display: block";
-        game.loosingSound.play() 
-        game.pause(pauseButton);
 }
 
-game.onWinningGame = function () {
+game.onWinningGame = () => {
     document.getElementById("game-screen").style = "display: none";
     document.getElementById("winner-screen").style = "display: ";
 }

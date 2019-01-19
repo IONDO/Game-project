@@ -5,12 +5,12 @@ class Block extends BouncingBox {
         this.y = y;
         this.width = width;
         this.height = height;
+        this._img = document.getElementById("block")
     }
 
     draw(context) {
         context.beginPath();
-        let img = document.getElementById("block")
-        context.drawImage(img,this.minX(), this.minY(), this.width, this.height);
+        context.drawImage(this._img, this.minX(), this.minY(), this.width, this.height);
         context.fill();
         context.closePath();
     }
@@ -18,23 +18,22 @@ class Block extends BouncingBox {
 
 class Blocks {
     constructor() {
-        this.x = 0;
-        this.y = 0;
-        this.width = 30;
-        this.height = 30;
-        this.padding = 25;
-        this.left = 80;
-        this.top = 40;
-        this.columns = 8;
-        this.rows = 6;
+        const width = 30;
+        const height = 30;
+        const padding = 25;
+        const left = 80;
+        const top = 40;
+        const columns = 8;
+        const rows = 6;
         this.blocks = [];
-        for (let i = 0; i < this.columns; i++) {
-            for (let j = 0; j < this.rows; j++) {
-                let brickX = (i * (this.width + this.padding)) + this.left;
-                let brickY = (j * (this.height + this.padding)) + this.top;
-                this.blocks.push(new Block(brickX, brickY, this.width,this.height));
+        for (let i = 0; i < columns; i++) {
+            for (let j = 0; j < rows; j++) {
+                let brickX = (i * (width + padding)) + left;
+                let brickY = (j * (height + padding)) + top;
+                this.blocks.push(new Block(brickX, brickY, width, height));
             }
         }
+        this.onBlockDestroyed = undefined;
     }
 
     draw(context) {
@@ -42,9 +41,13 @@ class Blocks {
     }
 
     update(ball) {
+
+        // Call back to be called when a block has been hitted by the ball and update socore
         this.blocks
             .filter(block => ball.bouncesAgainst(block) !== 'none')
             .forEach(block => this.onBlockDestroyed(block));
+
+        // This deletes the blocks that have been hitted by the ball    
         this.blocks = this.blocks.filter(block => ball.bouncesAgainst(block) === 'none');
     }
 }

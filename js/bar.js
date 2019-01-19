@@ -8,12 +8,12 @@ class Bar extends BouncingBox {
         this.speed = 6;
         this.right = false;
         this.left = false;
+        this._img = document.getElementById("bar");
     }
 
     draw(context) {
         context.fillStyle = "black";
-        let img = document.getElementById("bar")
-        context.drawImage(img,this.minX(), this.minY(), this.width, this.height);
+        context.drawImage(this._img, this.minX(), this.minY(), this.width, this.height);
     }
 
     // Boundaries set on the left and right of the playing area

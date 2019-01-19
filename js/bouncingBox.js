@@ -36,10 +36,6 @@ class BouncingBox {
             (box.maxY() - this.minY())
         )
 
-        let bounceType = (depthY < depthX) ? 'horizontal' : 'vertical';
-        
-        /*console.log(`Bouncing ${bounceType}ly with dx=${depthX},dy=${depthY}`)
-        console.log(`x=${this.x},y=${this.y} against x=${box.x},y=${box.y}`)*/
-        return bounceType;
+        return (depthY < depthX) ? 'horizontal' : 'vertical';
     }
 }

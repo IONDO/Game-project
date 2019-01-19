@@ -12,8 +12,9 @@ class Game {
         this.level = 1;
         this.onScoreChange = undefined;
         this.onWinningGame = undefined;
+        this.onGameOver = undefined;
         this.winningSound = new Audio("Sounds/winning game/win.mp3");
-        this.loosingSound = new Audio("Sounds/loosing game/gameover.wav");
+        this.losingSound = new Audio("Sounds/loosing game/gameover.wav");
     }
 
     _drawPlayingArea() {
@@ -33,9 +34,9 @@ class Game {
         this.score += 1;
         this.onScoreChange(this.score);
         if(this.blocks.length === 0) {
-            this.onWinningGame(this.score);
             this.pause(pauseButton);
             this.winningSound.play();
+            this.onWinningGame(this.score);
         }
     }
 
@@ -45,6 +46,8 @@ class Game {
         this.bar.update(this.playingArea);
         this.blocks.update(this.ball);
         if (this.ball.y >= this.playingArea.height) {
+            this.losingSound.play() 
+            this.pause(pauseButton);
             this.onGameOver();
         } else if (this.score <= 15) {
             this.level = 1;
@@ -56,10 +59,9 @@ class Game {
 
     }
 
-    start(onScoreChange) {
+    start() {
         this._interval = setInterval(this._update.bind(this), 1000 / this.updatesPerSecond);
         requestAnimationFrame(this._draw.bind(this));
-        this.onScoreChange = onScoreChange;
         this.onScoreChange(this.score);
     }
 
